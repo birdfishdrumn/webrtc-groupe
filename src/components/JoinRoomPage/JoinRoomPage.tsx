@@ -4,6 +4,7 @@ import { setRoomHost,getRoomState } from "src/features/room/roomSlice";
 import { useDispatch,useSelector  } from "react-redux";
 import  "./JoinRoomPage.css";
 import JoinRoomTitle from './JoinRoomTitle';
+import JoinRoomContent from './JoinRoomContent';
 
 
 const JoinRoomPage = () => {
@@ -25,7 +26,8 @@ const JoinRoomPage = () => {
   return (
     <div className="join_room_page_container">
       <div className="join_room_page_panel">
-        <JoinRoomTitle isRoomHost={isRoomHost}/>
+        <JoinRoomTitle isRoomHost={isRoomHost} />
+        <JoinRoomContent  isRoomHost={isRoomHost}/>
       </div>
 
     </div>
