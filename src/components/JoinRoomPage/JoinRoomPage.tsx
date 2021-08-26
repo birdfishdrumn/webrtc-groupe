@@ -1,11 +1,11 @@
 import React from 'react'
 
-const RoomPage = () => {
+const JoinRoomPage = () => {
   return (
     <div>
-   room
+   join
     </div>
   )
 }
 
-export default RoomPage
+export default JoinRoomPage
