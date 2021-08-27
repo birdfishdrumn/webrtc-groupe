@@ -5,24 +5,18 @@ import { useDispatch,useSelector  } from "react-redux";
 import  "./JoinRoomPage.css";
 import JoinRoomTitle from './JoinRoomTitle';
 import JoinRoomContent from './JoinRoomContent';
+import {  useRoomHost} from "src/hooks/useRoomHost";
 
 
 const JoinRoomPage = () => {
 
   const { search } = useLocation()
-  const dispatch = useDispatch()
-  const isRoomHost = useSelector(getRoomState)
+
+     const isRoomHostState = new URLSearchParams(search).get("host")
+
+  const isRoomHost = useRoomHost(isRoomHostState)
 
 
-  useEffect(() => {
-    const isRoomHost = new URLSearchParams(search).get("host")
-     console.log(isRoomHost)
-    if (isRoomHost) {
-         dispatch(setRoomHost(true))
-    } else {
-         dispatch(setRoomHost(false))
-    }
-  }, [])
   return (
     <div className="join_room_page_container">
       <div className="join_room_page_panel">
