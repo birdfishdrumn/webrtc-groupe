@@ -1,5 +1,6 @@
 import React, { useState }from 'react'
 import ErrorMessage from './ErrorMessage'
+import JoinRoomButtons from './JoinRoomButtons'
 import JoinRoomInput from './JoinRoomInput'
 import OnlyWithAudioCheckbox from './OnlyWithAudioCheckbox'
 
@@ -10,7 +11,11 @@ interface Props {
 const JoinRoomContent:React.VFC<Props> = ({isRoomHost}) => {
   const [roomIdValue, setRoomIdValue] = useState("")
   const [nameValue, setNameValue] = useState("")
-  const [errorMessage,setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+
+  const handleJoinRoom = () => {
+
+  }
   return (
     <>
       <JoinRoomInput
@@ -21,7 +26,10 @@ const JoinRoomContent:React.VFC<Props> = ({isRoomHost}) => {
         isRoomHost={isRoomHost}
       />
       <OnlyWithAudioCheckbox />
-      <ErrorMessage errorMessage={errorMessage}/>
+      <ErrorMessage errorMessage={errorMessage} />
+      <JoinRoomButtons
+        handleJoinRoom={handleJoinRoom}
+        isRoomHost={isRoomHost} />
     </>
   )
 }
