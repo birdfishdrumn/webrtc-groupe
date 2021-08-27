@@ -4,12 +4,14 @@ import { RootState, AppThunk } from '../../app/store';
 
 export interface RoomState {
   identity: string
-  isRoomHost:boolean
+  isRoomHost: boolean
+  connectionOnlyWithAudio:boolean
 }
 
 const initialState: RoomState = {
   identity: "",
-  isRoomHost:false
+  isRoomHost: false,
+  connectionOnlyWithAudio:false
 };
 
 
@@ -23,16 +25,20 @@ export const roomSlice = createSlice({
        state.identity = ""
        state.isRoomHost = action.payload;
     },
+    setConnectOnlyWithAudio: (state, action) => {
+            state.connectionOnlyWithAudio = action.payload;
+    }
   }
 
 });
 
-export const { setRoomHost } = roomSlice.actions;
+export const { setRoomHost,setConnectOnlyWithAudio } = roomSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.room.value)`
 export const getRoomState = (state: RootState) => state.room.isRoomHost;
+export const getConnectOnlyWithAudio = (state: RootState) => state.room.connectionOnlyWithAudio;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

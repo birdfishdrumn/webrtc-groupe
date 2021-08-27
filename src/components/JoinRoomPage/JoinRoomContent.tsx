@@ -1,5 +1,6 @@
 import React, { useState }from 'react'
 import JoinRoomInput from './JoinRoomInput'
+import OnlyWithAudioCheckbox from './OnlyWithAudioCheckbox'
 
 interface Props {
   isRoomHost:boolean
@@ -17,6 +18,7 @@ const JoinRoomContent:React.VFC<Props> = ({isRoomHost}) => {
         setNameValue={setNameValue}
         isRoomHost={isRoomHost}
       />
+      <OnlyWithAudioCheckbox/>
     </>
   )
 }
