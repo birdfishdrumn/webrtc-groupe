@@ -2,7 +2,7 @@ import React from 'react'
 
 const VideoSection = () => {
   return (
-    <div>
+    <div className="video_section_container">
 video
     </div>
   )

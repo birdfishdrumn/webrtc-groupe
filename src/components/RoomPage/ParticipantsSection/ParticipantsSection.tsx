@@ -2,7 +2,7 @@ import React from 'react'
 
 const ParticipantsSection = () => {
   return (
-    <div>
+    <div className="participants_section_container">
       partci
     </div>
   )
