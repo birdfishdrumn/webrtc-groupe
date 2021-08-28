@@ -5,14 +5,17 @@ import RoomLabel from './RoomLabel'
 
 import  "./RoomPage.css"
 import VideoSection from './VideoSection/VideoSection'
+import { useSelector } from "react-redux"
+import { getRoomId } from "src/features/room/roomSlice";
 
 const RoomPage = () => {
+  const roomId = useSelector(getRoomId)
   return (
     <div className="room_container">
       <ParticipantsSection />
       <VideoSection />
       <ChatSection/>
-      <RoomLabel roomId ="1234"/>
+      <RoomLabel roomId={roomId}/>
     </div>
   )
 }
