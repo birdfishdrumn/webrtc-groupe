@@ -1,10 +1,18 @@
 import io,{Socket} from "socket.io-client";
-
+import { store } from "src/app/store"
+import { setRoomId } from "src/features/room/roomSlice";
 const SERVER = "http://localhost:5002"
+
+type RoomData = {
+  roomId:string
+}
+
 
 let socket:Socket<any> | null= null;
 
 
+
+// socketサーバーからデータを受信する処理
 export const connectWithSocketIOServer = () => {
   socket = io(SERVER)
   console.log({socket})
@@ -12,9 +20,13 @@ export const connectWithSocketIOServer = () => {
   socket.on("connect", () => {
     console.log("success connect socket")
 
-          console.log(socket?.id)
-
-
+    console.log(socket?.id)
+  })
+  // serverから生成されたroomIdをreduxのroomIdにセットする
+  socket.on("room-id", (data:RoomData) => {
+    const { roomId } = data;
+    console.log(roomId)
+    store.dispatch(setRoomId(roomId))
   })
 }
 
@@ -23,7 +35,8 @@ export const createNewRoom = (identity:string) => {
   const data = {
     identity
   }
-
+  // emitはsocketサーバーにdateを送る処理
+  // 第一引数がメソッド名,第二引数は渡すデータ
   socket?.emit("create-new-room",data)
 }
 
