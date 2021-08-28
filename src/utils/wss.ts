@@ -11,9 +11,27 @@ export const connectWithSocketIOServer = () => {
 
   socket.on("connect", () => {
     console.log("success connect socket")
-    if (socket) {
-          console.log(socket.id)
-    }
+
+          console.log(socket?.id)
+
 
   })
+}
+
+
+export const createNewRoom = (identity:string) => {
+  const data = {
+    identity
+  }
+
+  socket?.emit("create-new-room",data)
+}
+
+export const joinRoom = (identity:string,roomId:string | null) => {
+  const data = {
+   roomId,
+    identity
+  }
+
+    socket?.emit("join-room",data)
 }

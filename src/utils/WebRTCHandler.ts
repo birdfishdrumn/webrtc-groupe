@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setOverlay } from "src/features/room/roomSlice";
-import { store} from "src/app/store";
+import { store } from "src/app/store";
+import * as wss from "./wss";
 const constrains = {
   audio: true,
   video:true
@@ -23,6 +24,8 @@ export const getLocalPreviewAndInitRoomConnection = async (
   localStream = mediaStream
     showLocalVideoPreview(localStream)
     store.dispatch(setOverlay(false))
+
+    isRoomHost ? wss.createNewRoom(identity) : wss.joinRoom(identity,roomId)
   } catch (e) {
     console.error(e)
   }
