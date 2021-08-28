@@ -6,13 +6,15 @@ import RoomLabel from './RoomLabel'
 import  "./RoomPage.css"
 import VideoSection from './VideoSection/VideoSection'
 import { useSelector } from "react-redux"
-import { getRoomId,getIdentity,getRoomState } from "src/features/room/roomSlice";
+import { getRoomId,getIdentity,getRoomState,getOverlay } from "src/features/room/roomSlice";
 import * as webRTCHandler from "src/utils/WebRTCHandler";
+import Overlay from './Overlay'
 
 const RoomPage = () => {
   const roomId = useSelector(getRoomId)
   const identity = useSelector(getIdentity)
   const isRoomHost = useSelector(getRoomState)
+    const showOverlay = useSelector(getOverlay)
 
   useEffect(() => {
 webRTCHandler.getLocalPreviewAndInitRoomConnection(isRoomHost,identity,roomId)
@@ -22,7 +24,8 @@ webRTCHandler.getLocalPreviewAndInitRoomConnection(isRoomHost,identity,roomId)
       <ParticipantsSection />
       <VideoSection />
       <ChatSection/>
-      <RoomLabel roomId={roomId}/>
+      <RoomLabel roomId={roomId} />
+     {showOverlay &&  <Overlay/>}
     </div>
   )
 }

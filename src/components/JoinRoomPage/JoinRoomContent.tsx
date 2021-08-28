@@ -30,7 +30,7 @@ const JoinRoomContent:React.VFC<Props> = ({isRoomHost}) => {
   }
 
   const joinRoom = async() => {
-     const responseMessage = await getRoomExists(roomIdValue)
+    const responseMessage= await getRoomExists(roomIdValue)
 
     const { roomExists,full } = responseMessage
     console.log(responseMessage)

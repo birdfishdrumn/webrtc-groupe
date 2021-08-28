@@ -6,14 +6,16 @@ export interface RoomState {
   identity: string
   isRoomHost: boolean
   connectionOnlyWithAudio: boolean
-  roomId:string | null
+  roomId: string | null
+  showOverlay:boolean
 }
 
 const initialState: RoomState = {
   identity: "",
   isRoomHost: false,
   connectionOnlyWithAudio: false,
-  roomId:null
+  roomId: null,
+  showOverlay:true
 };
 
 
@@ -23,8 +25,6 @@ export const roomSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     setRoomHost: (state, action) => {
-
-       state.identity = ""
        state.isRoomHost = action.payload;
     },
     setConnectOnlyWithAudio: (state, action) => {
@@ -35,12 +35,15 @@ export const roomSlice = createSlice({
     },
        setIdentity: (state, action) => {
             state.identity = action.payload;
-    }
+    },
+         setOverlay: (state, action) => {
+            state.showOverlay = action.payload;
+    },
   }
 
 });
 
-export const { setRoomHost,setConnectOnlyWithAudio,setRoomId,setIdentity } = roomSlice.actions;
+export const { setRoomHost,setConnectOnlyWithAudio,setRoomId,setIdentity,setOverlay } = roomSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -49,7 +52,7 @@ export const getRoomState = (state: RootState) => state.room.isRoomHost;
 export const getConnectOnlyWithAudio = (state: RootState) => state.room.connectionOnlyWithAudio;
 export const getRoomId = (state: RootState) => state.room.roomId;
 export const getIdentity = (state: RootState) => state.room.identity;
-
+export const getOverlay = (state: RootState) => state.room.showOverlay;
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 
