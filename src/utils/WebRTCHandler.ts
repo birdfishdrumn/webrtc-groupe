@@ -7,13 +7,15 @@ const constrains = {
 
 let localStream;
 
-export const getLocalPreviewAndInitRoomConnection = async(
-  isRoomHost:boolean,
-  identity:string,
-  roomId = isNullishCoalesce
+export const getLocalPreviewAndInitRoomConnection = async (
+  isRoomHost: boolean,
+  identity: string,
+  roomId:string | null
 ) => {
   try {
-      const mediaStream: MediaStream = await navigator.mediaDevices.getUserMedia(constrains)
+
+    const mediaStream: MediaStream = await navigator.mediaDevices.getUserMedia(constrains)
+      console.log(mediaStream)
   localStream = mediaStream
   showLocalVideoPreview(localStream)
   } catch (e) {
