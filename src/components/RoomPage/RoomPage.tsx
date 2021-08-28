@@ -1,9 +1,17 @@
 import React from 'react'
+import ChatSection from './ChatSection/ChatSection'
+import ParticipantsSection from './ParticipantsSection/ParticipantsSection'
+
+import  "./RoomPage.css"
+import VideoSection from './VideoSection/VideoSection'
 
 const RoomPage = () => {
   return (
-    <div>
-   room
+    <div className="room_container">
+      <ParticipantsSection />
+      <VideoSection />
+      <ChatSection/>
+
     </div>
   )
 }
