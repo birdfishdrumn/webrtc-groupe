@@ -1,13 +1,7 @@
 import React from 'react'
+import { getParticipants} from "src/features/room/roomSlice";
+import { useSelector } from "react-redux";
 
-const dummyParticipants = [
-  {
-    identity:"huuta"
-  },
-    {
-    identity:"kii"
-  },
-]
 
 
 const SingleParticipants = (props:any) => {
@@ -21,12 +15,13 @@ const SingleParticipants = (props:any) => {
 
 
 const Participants = () => {
+  const participants = useSelector(getParticipants)
   return (
     <div className="participants_container">
-      {dummyParticipants.map((participant, index)=>(
+      {participants.map((participant, index)=>(
         <SingleParticipants
           key={participant.identity}
-          lastItem={dummyParticipants.length === index + 1}
+          lastItem={participants.length === index + 1}
           participant={participant}
           identity={participant.identity}
         />

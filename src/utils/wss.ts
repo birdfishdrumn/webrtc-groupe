@@ -1,10 +1,14 @@
 import io,{Socket} from "socket.io-client";
 import { store } from "src/app/store"
-import { setRoomId } from "src/features/room/roomSlice";
+import { setRoomId,setParticipants } from "src/features/room/roomSlice";
 const SERVER = "http://localhost:5002"
 
 type RoomData = {
   roomId:string
+}
+
+type ParticipantsData = {
+   connectedUsers:string[]
 }
 
 
@@ -27,6 +31,12 @@ export const connectWithSocketIOServer = () => {
     const { roomId } = data;
     console.log(roomId)
     store.dispatch(setRoomId(roomId))
+  })
+
+  socket.on("room-update", (data:ParticipantsData) => {
+    const { connectedUsers } = data
+    console.log(connectedUsers)
+    store.dispatch(setParticipants(connectedUsers))
   })
 }
 

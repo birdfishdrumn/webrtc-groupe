@@ -7,7 +7,8 @@ export interface RoomState {
   isRoomHost: boolean
   connectionOnlyWithAudio: boolean
   roomId: string | null
-  showOverlay:boolean
+  showOverlay: boolean
+  participants:any[]
 }
 
 const initialState: RoomState = {
@@ -15,7 +16,8 @@ const initialState: RoomState = {
   isRoomHost: false,
   connectionOnlyWithAudio: false,
   roomId: null,
-  showOverlay:true
+  showOverlay: true,
+  participants:[]
 };
 
 
@@ -39,11 +41,14 @@ export const roomSlice = createSlice({
          setOverlay: (state, action) => {
             state.showOverlay = action.payload;
     },
+          setParticipants: (state, action) => {
+            state.participants = action.payload
+    },
   }
 
 });
 
-export const { setRoomHost,setConnectOnlyWithAudio,setRoomId,setIdentity,setOverlay } = roomSlice.actions;
+export const { setRoomHost,setConnectOnlyWithAudio,setRoomId,setIdentity,setOverlay,setParticipants } = roomSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -53,6 +58,7 @@ export const getConnectOnlyWithAudio = (state: RootState) => state.room.connecti
 export const getRoomId = (state: RootState) => state.room.roomId;
 export const getIdentity = (state: RootState) => state.room.identity;
 export const getOverlay = (state: RootState) => state.room.showOverlay;
+export const getParticipants = (state: RootState) => state.room.participants;
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 
