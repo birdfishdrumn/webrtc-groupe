@@ -10,7 +10,7 @@ const constrains = {
 let localStream;
 
 
-
+// RoomPageC.tsxからuseEffectを通して実行される
 export const getLocalPreviewAndInitRoomConnection = async (
   isRoomHost: boolean,
   identity: string,
@@ -24,6 +24,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
   localStream = mediaStream
     showLocalVideoPreview(localStream)
     store.dispatch(setOverlay(false))
+  //  isRoomHostがtrueなら新しい部屋を作成する処理、falseなら部屋に参加する処理を実行する。
 
     isRoomHost ? wss.createNewRoom(identity) : wss.joinRoom(identity,roomId)
   } catch (e) {
