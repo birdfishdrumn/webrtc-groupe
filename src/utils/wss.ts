@@ -51,10 +51,20 @@ export const connectWithSocketIOServer = () => {
 
 
     webRTCHandler.prepareNewPeerConnection(connUserSocketId, false)
+
+    // inform user incoming
+    socket?.emit("conn-init",{connUserSocketId: connUserSocketId})
   })
 
   socket.on("conn-signal", (data: SignalData) => {
     webRTCHandler.handleSignalingData(data)
+
+  })
+
+
+  socket.on("conn-init", (data: SignalData) => {
+    const { connUserSocketId } = data
+    webRTCHandler.prepareNewPeerConnection(connUserSocketId,true)
 
   })
 }
