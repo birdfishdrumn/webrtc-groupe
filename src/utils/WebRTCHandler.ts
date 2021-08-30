@@ -28,7 +28,8 @@ export const getLocalPreviewAndInitRoomConnection = async (
 
     const mediaStream: MediaStream = await navigator.mediaDevices.getUserMedia(constrains)
       console.log(mediaStream)
-  localStream = mediaStream
+    localStream = mediaStream
+    //videoを表示する関数
     showLocalVideoPreview(localStream)
     store.dispatch(setOverlay(false))
   //  isRoomHostがtrueなら新しい部屋を作成する処理、falseなら部屋に参加する処理を実行する。
@@ -40,9 +41,6 @@ export const getLocalPreviewAndInitRoomConnection = async (
 
 }
 
-const showLocalVideoPreview = (stream:MediaStream) => {
-
-}
 
 
 let peers: any = { };
@@ -92,6 +90,25 @@ export const prepareNewPeerConnection = (connUserSocketId: string,isInitiator:bo
 export const handleSignalingData = (data:SignalData) => {
   peers[data.connUserSocketId].signal(data.signal)
 }
+
+///////////////////////////// UI ///////////////////////
+const showLocalVideoPreview = (stream:MediaStream) => {
+  const videosContainer = document.getElementById("videos_portal")
+  videosContainer?.classList.add("videos_portal_styles")
+  const videoContainer = document.createElement("div")
+  videoContainer?.classList.add("video_track_container")
+  const videoElement = document.createElement("video")
+  videoElement.autoplay = true
+  videoElement.muted = true
+  videoElement.srcObject = stream
+
+  videoElement.onloadedmetadata = () => {
+    videoElement.play();
+  }
+  videoContainer.appendChild(videoElement)
+  videosContainer?.appendChild(videoContainer)
+}
+
 
 const addStream = (stream: MediaStream, connectUserSocketId:string) => {
   // display incoming stream
