@@ -89,6 +89,10 @@ export const prepareNewPeerConnection = (connUserSocketId: string,isInitiator:bo
 
 }
 
+export const handleSignalingData = (data:SignalData) => {
+  peers[data.connUserSocketId].signal(data.signal)
+}
+
 const addStream = (stream: MediaStream, connectUserSocketId:string) => {
   // display incoming stream
 }

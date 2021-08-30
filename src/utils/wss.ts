@@ -26,7 +26,7 @@ let socket:Socket<any> | null= null;
 // socketサーバーからデータを受信する処理
 export const connectWithSocketIOServer = () => {
   socket = io(SERVER)
-  console.log({socket})
+  console.log({ socket })
 
   socket.on("connect", () => {
     console.log("success connect socket")
@@ -34,22 +34,28 @@ export const connectWithSocketIOServer = () => {
     console.log(socket?.id)
   })
   // serverから生成されたroomIdをreduxのroomIdにセットする
-  socket.on("room-id", (data:RoomData) => {
+  socket.on("room-id", (data: RoomData) => {
     const { roomId } = data;
     console.log(roomId)
     store.dispatch(setRoomId(roomId))
   })
 
-  socket.on("room-update", (data:ParticipantsData) => {
+  socket.on("room-update", (data: ParticipantsData) => {
     const { connectedUsers } = data
     console.log(connectedUsers)
     store.dispatch(setParticipants(connectedUsers))
   })
 
-    socket.on("conn-prepare", (data:ConnectedData) => {
-    const { connUserSocketId} = data
+  socket.on("conn-prepare", (data: ConnectedData) => {
+    const { connUserSocketId } = data
 
-  webRTCHandler.prepareNewPeerConnection(connUserSocketId,false)
+
+    webRTCHandler.prepareNewPeerConnection(connUserSocketId, false)
+  })
+
+  socket.on("conn-signal", (data: SignalData) => {
+    webRTCHandler.handleSignalingData(data)
+
   })
 }
 
