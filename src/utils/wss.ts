@@ -1,6 +1,9 @@
 import io,{Socket} from "socket.io-client";
 import { store } from "src/app/store"
-import { setRoomId,setParticipants } from "src/features/room/roomSlice";
+import { setRoomId, setParticipants } from "src/features/room/roomSlice";
+import * as webRTCHandler from "./WebRTCHandler";
+import { SignalData } from "./WebRTCHandler";
+
 const SERVER = "http://localhost:5002"
 
 type RoomData = {
@@ -9,6 +12,10 @@ type RoomData = {
 
 type ParticipantsData = {
    connectedUsers:string[]
+}
+
+type ConnectedData = {
+   connUserSocketId:string
 }
 
 
@@ -38,6 +45,12 @@ export const connectWithSocketIOServer = () => {
     console.log(connectedUsers)
     store.dispatch(setParticipants(connectedUsers))
   })
+
+    socket.on("conn-prepare", (data:ConnectedData) => {
+    const { connUserSocketId} = data
+
+  webRTCHandler.prepareNewPeerConnection(connUserSocketId,false)
+  })
 }
 
 
@@ -57,4 +70,8 @@ export const joinRoom = (identity:string,roomId:string | null) => {
   }
 
     socket?.emit("join-room",data)
+}
+
+export const signalPeerData = (data:SignalData) => {
+  socket?.emit("conn-signal",data)
 }
